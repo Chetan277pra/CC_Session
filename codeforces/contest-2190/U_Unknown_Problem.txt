@@ -1,7 +1,0 @@
-// Problem: Unknown Problem
-// Contest: 2190
-// Language: unknown
-// Link: https://codeforces.com/contest/2190/submission/365712689
-// Date: 2026-03-07T11:10:08.566Z
-
-#include <bits/stdc++.h>using namespace std; int main() {    int tt;    cin >> tt;    while(tt--){          int n;    cin >> n;    string s;    cin >> s;    bool mila = false;    vector<int> pos;    int i = 0;    while(i < n-1 ){            if(s[i] == '0'){        i++;        continue;      }                        int aage = i+1;      while(aage < n and s[aage] == '1') aage++;      if(aage == n) break;      // zero mila hai      mila = true;            string temp = s.substr(i);      // cout<<"i : "<<i<<" aage : "<<aage<<" temp : "<<temp<<endl;      sort(temp.begin() , temp.end());       for(int j = i; j < n; j++){        if(s[j] != temp[j-i]){          pos.push_back(j+1);        }      }      break;    }    // cout<<pos.size()<<endl;    // for(auto a : pos) cout<< a << " ";    // cout<<endl;    if(!mila)      cout<<"Bob\n";      else{        cout<<"Alice\n";        cout<<pos.size()<<"\n";        for(int i = 0; i < pos.size(); i++){          cout<<pos[i]<<" ";        }        cout<<"\n";      }          }        return 0;}
