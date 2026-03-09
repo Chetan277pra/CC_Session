@@ -1,0 +1,56 @@
+// Problem: chtn
+// Contest: 2200
+// Submission id: 365938221
+
+#include<bits/stdc++.h>
+using namespace std;
+#define all(x) (x).begin(), (x).end()
+
+int main(){
+    int tt;
+    cin >> tt;
+    while(tt--){
+        
+        int n;
+    cin >> n;
+    int l , r;
+    cin >> l >> r;
+    vector<int> vec(n);
+    for(auto&a : vec) cin >> a;
+    vector<int> bahar;
+    for(int i = 0; i< l; i++) bahar.push_back(vec[i]);
+    for(int i = r; i < n;i++) bahar.push_back(vec[i]);
+    vector<int> andar;
+    for(int i = l ; i < r; i++) andar.push_back(vec[i]);
+    //     cout<< " bahr"<<endl;
+    // for(auto a : bahar) cout<< a<<" ";
+    int minind = min_element(all(andar))-andar.begin();
+    rotate(andar.begin(), andar.begin()+minind, andar.end());
+    // cout<<endl<< " anfar "<<endl;
+    // for(auto a : andar) cout<< a<< " ";
+    //     cout<<endl;
+    int outmin = min_element(all(bahar))-bahar.begin();
+    int minele = andar[0];
+    int pahleind = bahar.size();
+    for(int i = 0; i < bahar.size(); i++){
+        if(bahar[i] < minele) continue;
+        pahleind = i;
+        break;
+    }
+    vector<int> ans;
+    for(int i = 0; i < pahleind; i++)
+        ans.push_back(bahar[i]);
+    for(auto a : andar) ans.push_back(a);
+    for(int i = pahleind; i < bahar.size(); i++)
+        ans.push_back(bahar[i]);
+    for(auto a: ans) cout << a <<" ";
+
+        
+        cout << "\n";
+    }
+
+    return 0;
+}
+
+// 2 4 3 1 6 5
+// 2 4 3 1 6 5
