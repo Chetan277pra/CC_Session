@@ -1,0 +1,53 @@
+// Problem: Hamiiid, Haaamid... Hamid?
+// Contest: 2127
+// Link: https://codeforces.com/contest/2127/problem/B
+// Submission id: 366251475
+
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int tt;
+    cin >> tt;
+    while(tt--){
+        int n , pos;
+        cin >> n >> pos;
+        string s;
+        cin >> s;
+        pos--;
+        int left = pos-1;
+        // left dekha
+        while(left >= 0)
+            if(s[left] == '#') break;
+            else left--;
+        int right = pos+1;
+         while(right < n)
+            if(s[right] == '#') break;
+            else right++;
+
+        // cout<<left <<" "<< right << endl;
+        // no wall in both direction
+        if(left == -1 and right == n){
+            cout<<"1\n";
+            continue;
+        }
+        // walll in one direction
+        if(left == -1 or right == n){
+            // if left  is open
+            if(left == -1){
+                cout << ( min(pos , n-right) + 1) << "\n";
+                continue;
+            }
+            else{
+                cout << ( min(left+1 , n-pos-1) + 1) << "\n";
+                continue;
+            }
+        }
+        // now both side wall
+        int leftside = left+1, rightside = n - right;
+        if( rightside < leftside) rightside = n-pos-1;
+        else leftside = pos;
+        // cout<<leftside<<" "<<rightside<<endl;
+        cout<<(min(leftside , rightside) + 1) << "\n";
+    }
+    return 0;
+}
