@@ -1,43 +1,52 @@
 // Problem: chtn
 // Contest: 2127
-// Submission id: 338086444
+// Submission id: 366251475
 
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
- 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int t;
-    if (!(cin >> t)) return 0;
-    while (t--) {
-        int n, k;
-        cin >> n >> k;
-        vector<ll> vec1(n), vec2(n);
-        for (int i = 0; i < n; ++i) cin >> vec1[i];
-        for (int i = 0; i < n; ++i) cin >> vec2[i];
-        for (int i = 0; i < n; ++i) if (vec1[i] > vec2[i]) swap(vec1[i], vec2[i]);
-        ll base = 0;
-        vector<pair<ll,ll>> seg(n);
-        for (int i = 0; i < n; ++i) {
-            base += (vec2[i] - vec1[i]);
-            seg[i] = {vec1[i], vec2[i]};
-        }
-        sort(seg.begin(), seg.end());
-        bool intersect = false;
-        ll maxR = LLONG_MIN;
-        for (int i = 0; i < n; ++i) {
-            if (seg[i].first <= maxR) { intersect = true; break; }
-            maxR = max(maxR, seg[i].second);
-        }
-        if (intersect) {
-            cout << base << '\n';
+int main(){
+    int tt;
+    cin >> tt;
+    while(tt--){
+        int n , pos;
+        cin >> n >> pos;
+        string s;
+        cin >> s;
+        pos--;
+        int left = pos-1;
+        // left dekha
+        while(left >= 0)
+            if(s[left] == '#') break;
+            else left--;
+        int right = pos+1;
+         while(right < n)
+            if(s[right] == '#') break;
+            else right++;
+
+        // cout<<left <<" "<< right << endl;
+        // no wall in both direction
+        if(left == -1 and right == n){
+            cout<<"1\n";
             continue;
         }
-        ll min_gap = LLONG_MAX;
-        for (int i = 1; i < n; ++i) min_gap = min(min_gap, seg[i].first - seg[i-1].second);
-        cout << base + 2 * min_gap << '\n';
+        // walll in one direction
+        if(left == -1 or right == n){
+            // if left  is open
+            if(left == -1){
+                cout << ( min(pos , n-right) + 1) << "\n";
+                continue;
+            }
+            else{
+                cout << ( min(left+1 , n-pos-1) + 1) << "\n";
+                continue;
+            }
+        }
+        // now both side wall
+        int leftside = left+1, rightside = n - right;
+        if( rightside < leftside) rightside = n-pos-1;
+        else leftside = pos;
+        // cout<<leftside<<" "<<rightside<<endl;
+        cout<<(min(leftside , rightside) + 1) << "\n";
     }
     return 0;
 }
