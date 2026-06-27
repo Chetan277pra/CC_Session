@@ -1,26 +1,52 @@
 // Problem: chtn
 // Contest: 2237
-// Submission id: 379724753
+// Submission id: 380338006
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() 
-{
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int tt;
     cin >> tt;
-    while(tt--){
+
+    while (tt--) {
         int n;
         cin >> n;
-        vector<int> vec(n);
-        for(auto & a : vec) cin >> a;
-        int ans = 0;
-        int mini = INT_MAX;
-        for(auto a : vec ){
-            mini = min(mini , a );
-            ans += mini;
+
+        vector<long long> a(n), b(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        for (int i = 0; i < n; i++) cin >> b[i];
+
+        vector<int> used(n, 0);
+        long long ans = 0;
+        bool ok = true;
+
+        for (int i = 0; i < n; i++) {
+            int pos = -1;
+
+            for (int j = 0; j < n; j++) {
+                if (!used[j] && a[j] <= b[i]) {
+                    pos = j;
+                    break;
+                }
+            }
+
+            if (pos == -1) {
+                ok = false;
+                break;
+            }
+
+            for (int j = 0; j < pos; j++)
+                if (!used[j]) ans++;
+
+            used[pos] = 1;
         }
-        cout << ans << "\n";
+
+        cout << (ok ? ans : -1) << '\n';
     }
+
     return 0;
 }
