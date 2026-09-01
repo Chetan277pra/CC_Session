@@ -1,11 +1,11 @@
 // Problem: chtn
 // Contest: 1272
-// Submission id: 389119576
+// Submission id: 389119629
 
 #include <bits/stdc++.h>
 using namespace std;
-
-int main() 
+#define int long long
+int32_t main() 
 {
     int n , k;
     cin >> n >> k;
