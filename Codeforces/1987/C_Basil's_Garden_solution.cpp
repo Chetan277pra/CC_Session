@@ -5,9 +5,9 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-
+ 
 #define int long long
-
+ 
 int32_t main() {
     
     int tt;
@@ -31,6 +31,6 @@ int32_t main() {
     
         cout << time << '\n';
     }
-
+ 
     return 0;
 }
