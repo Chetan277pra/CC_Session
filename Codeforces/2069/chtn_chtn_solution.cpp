@@ -1,44 +1,50 @@
 // Problem: chtn
 // Contest: 2069
-// Submission id: 334482414
+// Submission id: 391432042
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() 
-{
-    int tt;
-    cin >> tt;
-    while(tt--){
-        int n;
-        cin >> n;
-        
-         bool flag = true;
-        vector<int> vec(n-2);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-        
-        for(int i = 0; i < n-2; i++)
-            cin >> vec[i];
+    int t;
+    cin >> t;
 
-        // For n = 3 or 4, answer is YES directly
-        if(n < 4){
-            cout << "YES" << endl;
-            continue;
-        }
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
 
-       
+        vector<vector<int>> a(n, vector<int>(m));
+        vector<int> cost(n * m + 1, 0);
 
-        for(int i = 0; i < n-4; i++){
-            if(vec[i] == 1 && vec[i+1] == 0 && vec[i+2] == 1){
-                flag = false;
-                break;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> a[i][j];
+                cost[a[i][j]] = 1;
             }
         }
 
-        if(flag)
-            cout << "YES" << endl;
-        else
-            cout << "NO" << endl;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (i + 1 < n && a[i][j] == a[i + 1][j])
+                    cost[a[i][j]] = 2;
+
+                if (j + 1 < m && a[i][j] == a[i][j + 1])
+                    cost[a[i][j]] = 2;
+            }
+        }
+
+        int total = 0, mx = 0;
+
+        for (int c = 1; c <= n * m; c++) {
+            total += cost[c];
+            mx = max(mx, cost[c]);
+        }
+
+        cout << total - mx << '\n';
     }
+
     return 0;
 }
