@@ -1,6 +1,6 @@
 // Problem: chtn
 // Contest: 2266
-// Submission id: 391689155
+// Submission id: 391750603
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -12,12 +12,19 @@ int main()
     while(tt--){
         int n;
         cin >> n;
-        int mini = INT_MAX;
-        for(int i = 0; i < 3; i++){
-            int temp; cin >> temp;
-            mini = min(mini , temp);
+        vector<int> vec(n);
+        for(auto & a : vec) cin >> a;
+        for(int i = 0; i < n; i++){
+            vec[i] -= i;
         }
-        cout << n - mini <<"\n";
+        sort(vec.begin() , vec.end());
+        int ans = INT_MIN;
+        map<int , int> mpp;
+        for(auto a : vec){
+           mpp[a] = max(mpp[a] , mpp[a-1] + 1);
+           ans = max(ans , mpp[a]);
+        }
+        cout << ans <<"\n";
     }
     return 0;
 }
