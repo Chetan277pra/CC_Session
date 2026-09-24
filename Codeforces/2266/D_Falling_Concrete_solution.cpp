@@ -3,20 +3,29 @@
 // Link: https://codeforces.com/contest/2266/problem/D
 // Submission id: 391750603
 
-8
-5
-5 5 5 9 8
-6
-6 6 6 6 6 6
-5
-5 6 7 8 9
-5
-9 7 12 10 12
-4
-4 7 5 8
-7
-14 9 14 12 8 11 12
-5
-1000000000 1000000000 1000000000 1000000000 1000000000
-8
-8 8 12 8 14 10 15 13
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() 
+{
+    int tt;
+    cin >> tt;
+    while(tt--){
+        int n;
+        cin >> n;
+        vector<int> vec(n);
+        for(auto & a : vec) cin >> a;
+        for(int i = 0; i < n; i++){
+            vec[i] -= i;
+        }
+        sort(vec.begin() , vec.end());
+        int ans = INT_MIN;
+        map<int , int> mpp;
+        for(auto a : vec){
+           mpp[a] = max(mpp[a] , mpp[a-1] + 1);
+           ans = max(ans , mpp[a]);
+        }
+        cout << ans <<"\n";
+    }
+    return 0;
+}
